@@ -1,0 +1,9 @@
+c:\users\daoky\documents\visual studio 2017\Projects\CarryChess\CarryChess\bin\Debug\CarryChess.exe.config
+c:\users\daoky\documents\visual studio 2017\Projects\CarryChess\CarryChess\bin\Debug\CarryChess.exe
+c:\users\daoky\documents\visual studio 2017\Projects\CarryChess\CarryChess\bin\Debug\CarryChess.pdb
+c:\users\daoky\documents\visual studio 2017\Projects\CarryChess\CarryChess\obj\Debug\CarryChess.csprojResolveAssemblyReference.cache
+c:\users\daoky\documents\visual studio 2017\Projects\CarryChess\CarryChess\obj\Debug\CarryChess.Form1.resources
+c:\users\daoky\documents\visual studio 2017\Projects\CarryChess\CarryChess\obj\Debug\CarryChess.Properties.Resources.resources
+c:\users\daoky\documents\visual studio 2017\Projects\CarryChess\CarryChess\obj\Debug\CarryChess.csproj.GenerateResource.Cache
+c:\users\daoky\documents\visual studio 2017\Projects\CarryChess\CarryChess\obj\Debug\CarryChess.exe
+c:\users\daoky\documents\visual studio 2017\Projects\CarryChess\CarryChess\obj\Debug\CarryChess.pdb

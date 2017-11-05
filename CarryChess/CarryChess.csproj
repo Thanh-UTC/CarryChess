@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CONS.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -52,6 +53,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -60,7 +64,17 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="bin\Resource\BanCo.psd" />
+    <None Include="bin\Resource\BanCoFix.psd" />
+    <None Include="bin\Resource\canMove.psd" />
+    <None Include="bin\Resource\duonggachbanco.psd" />
+    <None Include="bin\Resource\KhungBanCoFix.psd" />
+    <None Include="bin\Resource\QuanCo.psd" />
+    <None Include="bin\Resource\QuanCoDen.psd" />
+    <None Include="bin\Resource\QuanCoTrang.psd" />
+    <None Include="bin\Resource\Untitled-1.psd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -73,6 +87,32 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Resource\AnhBanCo.png" />
+    <Content Include="bin\Resource\BanCoFix.png" />
+    <Content Include="bin\Resource\CanMove.png" />
+    <Content Include="bin\Resource\cjj1342493794.jpg" />
+    <Content Include="bin\Resource\duonggachbanco.png" />
+    <Content Include="bin\Resource\Empty.png" />
+    <Content Include="bin\Resource\KhungBanCoFix.png" />
+    <Content Include="bin\Resource\QuanCoDen.png" />
+    <Content Include="bin\Resource\QuanCoDo.png" />
+    <Content Include="bin\Resource\QuanCoTrang.png" />
+    <None Include="Resources\QuanCoTrang.png" />
+    <None Include="Resources\QuanCoDo.png" />
+    <None Include="Resources\QuanCoDen.png" />
+    <None Include="Resources\KhungBanCoFix.png" />
+    <None Include="Resources\Empty.png" />
+    <None Include="Resources\duonggachbanco.png" />
+    <None Include="Resources\cjj1342493794.jpg" />
+    <None Include="Resources\CanMove.png" />
+    <None Include="Resources\BanCoFix.png" />
+    <None Include="Resources\AnhBanCo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\" />
+    <Folder Include="bin\Release\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
