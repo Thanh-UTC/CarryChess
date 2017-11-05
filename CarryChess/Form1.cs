@@ -20,6 +20,7 @@ namespace CarryChess
         private Point destinationPoint;
         private Point startPoint;
         private PictureBox tempPicBox;
+        private CheckMove checkMethod = new CheckMove();
         //
         //
         //
@@ -174,7 +175,7 @@ namespace CarryChess
 
             listChess[y,x] = tempPicBox;
             
-            //tempmap = checkMethod.EatCheck(destinationPoint, tempmap);
+            tempmap = checkMethod.EatCheck(destinationPoint, tempmap);
             WipeOutChessmen();
             Console.WriteLine();
             for (int a = 0; a < 9; a++)
