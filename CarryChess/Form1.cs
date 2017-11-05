@@ -145,6 +145,49 @@ namespace CarryChess
             chessPiece.BackColor = Color.PeachPuff;
             chessPiece.Size = new Size(50, 50);
         }
+        //
+        // Panel1 click event
+        //
+        private void panel1_MouseClick(object sender, MouseEventArgs e)
+        {
+            int x = (e.X) / CONS.SQUARE_SIZE;
+            int y = (e.Y) / CONS.SQUARE_SIZE;
+            Console.WriteLine(y + ";" + x);
+            for (int a = 0; a < 9; a++)
+            {
+                for (int b = 0; b < 9; b++)
+                {
+                    Console.Write(tempmap[a, b] + " ");
+                }
+                Console.WriteLine();
+            }
+            destinationPoint = new Point(x * CONS.SQUARE_SIZE, y*CONS.SQUARE_SIZE);
+
+            int i = (startPoint.X) / CONS.SQUARE_SIZE;
+            int j = (startPoint.Y) / CONS.SQUARE_SIZE;
+            panel1.Controls.Remove(listChess[j, i]);
+            int m;
+
+            m = tempmap[j+CONS.STD_DEVI, i+CONS.STD_DEVI];
+            tempmap[j+CONS.STD_DEVI, i+CONS.STD_DEVI] = 0;
+            tempmap[y + CONS.STD_DEVI, x + CONS.STD_DEVI] = m;
+
+            listChess[y,x] = tempPicBox;
+            
+            //tempmap = checkMethod.EatCheck(destinationPoint, tempmap);
+            WipeOutChessmen();
+            Console.WriteLine();
+            for (int a = 0; a < 9; a++)
+            {
+                for (int b = 0; b < 9; b++)
+                {
+                    Console.Write(tempmap[a, b] + " ");
+                }
+                Console.WriteLine();
+            }
+            DrawChessMan(tempmap);
+            //MoveBlackChessMan();
+        }
 
 
     }
