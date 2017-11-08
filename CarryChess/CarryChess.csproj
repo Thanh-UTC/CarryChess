@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheckMove.cs" />
+    <Compile Include="ChessMove.cs" />
     <Compile Include="CONS.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

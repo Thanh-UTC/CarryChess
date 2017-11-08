@@ -151,33 +151,85 @@ namespace CarryChess
             //  (b)  (b)  (b)   (b)   (b)   (b)   (b)   (b)  (b)
             //  map
 
-            //
-            // center point (*) or (9), (7), (17), (19) with biggest square 
-            //
-            if (maps[y, x] == 2 && maps[y + 2, x - 2] == 2 && maps[y + 2, x - 1] == 2 && maps[y + 2, x] == 2 && maps[y + 1, x] == 2
-               && maps[y + 1, x - 1] == 1 && maps[y + 1, x - 2] == 2 && maps[y, x - 2] == 2 && maps[y, x - 1] == 2)
+            
+            #region
+            if (maps[y, x] == 2)
             {
-                maps[y + 1, x - 1] = 2;
+                #region center point with big square - each point is center of the square
+                // point 9
+                if (maps[y + 1,x-1]==1 && maps[y + 2, x - 2] == 2 && maps[y + 2, x - 1] == 2 && maps[y + 2, x] == 2 
+                    && maps[y + 1, x] == 2 && maps[y + 1, x - 2] == 2 && maps[y, x - 2] == 2 && maps[y, x - 1] == 2)
+                {
+                    maps[y + 1, x - 1] = 2;
+                }
+                // point 7
+                else if(maps[y + 1, x + 1] == 1 && maps[y + 2, x - 2] == 2 && maps[y + 2, x - 1] == 2 && maps[y + 2, x] == 2 && maps[y + 1, x] == 2
+                    && maps[y + 1, x - 2] == 2 && maps[y, x - 2] == 2 && maps[y, x - 1] == 2)
+                {
+                    maps[y + 1, x + 1] = 2;
+                }
+                // point 17
+                else if(maps[y - 1, x + 1] == 1 && maps[y - 2, x + 2] == 2 && maps[y - 2, x + 1] == 2 && maps[y - 2, x] == 2 && maps[y - 1, x] == 2
+                    && maps[y - 1, x + 2] == 2 && maps[y, x + 2] == 2 && maps[y, x + 1] == 2)
+                {
+                    maps[y - 1, x + 1] = 2;
+                }
+                //point 19
+                else if (maps[y - 1, x - 1] == 1 && maps[y - 2, x - 2] == 2 && maps[y - 2, x - 1] == 2 && maps[y - 2, x] == 2 && maps[y - 1, x] == 2
+                    && maps[y - 1, x - 2] == 2 && maps[y, x - 2] == 2 && maps[y, x - 1] == 2)
+                {
+                    maps[y - 1, x - 1] = 2;
+                }
+                // point 8
+                else if (maps[y+1,x] ==1 && maps[y,x+1]==2 && maps[y+1,x+1]==2 && maps[y+2,x+1]==2 && maps[y+2,x]==2 && maps[y+2,x-1]==2 
+                    &&maps[y+1,x-1]==2 && maps[y,x-1]==2)
+                {
+                    maps[y + 1, x] = 2;
+                }
+                // point 14
+                else if (maps[y,x+1]==1 && maps[y-1,x]==2 && maps[y-1,x+1]==2 && maps[y-1,x+2]==2 && maps[y,x+2]==2 && maps[y+1,x+2]==2 
+                    && maps[y+1,x+1]==2 && maps[y + 1, x] == 2)
+                {
+                    maps[y, x + 1]=2;
+                }
+                // point 18
+                else if (maps[y-1,x]==1 && maps[y,x-1]==2 && maps[y-1,x-1]==2 && maps[y-2,x-1]==2 && maps[y-2,x]==2 && maps[y-2,x-1]==2
+                    && maps[y-1,x+1]==2 && maps[y,x+1]==2)    
+                {
+                    maps[y - 1, x] = 2;
+                }
+                //point 12
+                else if (maps[y,x-1]==1 && maps[y+1,x]==2 && maps[y+1,x-1]==2 && maps[y+1,x-2]==2 && maps[y, x-2]==2&& maps[y-1,x-2 ]==2
+                    && maps[y-1,x-1]==2 && maps[y-1,x]==2 )
+                {
+                    maps[y, x - 1] = 2;
+                }
+                #endregion
+                #region rectangle- each point is the corner of the rectangle or the middle point- 5 surrounded chessmen
+                if (maps[y + 1, x - 1] == 1 && maps[y + 1, x - 2] == 2 && maps[y, x - 2] == 2 && maps[y, x - 1] == 2 && maps[y + 1, x] == 2)
+                {
+                    maps[y + 1, x - 1] = 2;
+                } else if (maps[y, x - 1] == 1 && maps[y, x - 2] == 2 && maps[y - 1, x - 2] == 2 && maps[y - 1, x - 1] == 2 && maps[y - 1, x] == 2)
+                {
+                    maps[y, x - 1] = 2;
+                } else if (maps[y,x+1]==1 && maps[y-1,x]==2 && maps[y-1,x+1]==2 && maps[y-1,x+2]==2 && maps[y,x+2]==2)
+                {
+                    maps[y, x + 1] = 2;
+                }else if (maps[y+1,x+1]==1 && maps[y+1,x]==2 && maps[y,x+1]==2 && maps[y,x+2]==2 && maps[y+1,x+2]==2)
+                {
+                    maps[y + 1, x + 1] = 2;
+                }else if (maps[y+1,x] ==1 && maps[y+1,x-1]==2 && maps[y,x-1]==2 && maps[y,x+1]==2 && maps[y+1,x+1]==2)
+                {
+                    maps[y + 1, x] = 2;
+                }
+                    #endregion
             }
-            else if (maps[y, x] == 2 && maps[y + 2, x + 2] == 2 && maps[y + 2, x + 1] == 2 && maps[y + 2, x] == 2 && maps[y + 1, x] == 2
-                && maps[y + 1, x + 1] == 1 && maps[y + 1, x + 2] == 2 && maps[y, x + 2] == 2 && maps[y, x + 1] == 2)
-            {
-                maps[y + 1, x + 1] = 2;
-            }
-            else if (maps[y, x] == 2 && maps[y - 2, x + 2] == 2 && maps[y - 2, x + 1] == 2 && maps[y - 2, x] == 2 && maps[y - 1, x] == 2
-                && maps[y - 1, x + 1] == 1 && maps[y - 1, x + 2] == 2 && maps[y, x + 2] == 2 && maps[y, x + 1] == 2)
-            {
-                maps[y - 1, x + 1] = 2;
-            }
-            else if (maps[y, x] == 2 && maps[y - 2, x - 2] == 2 && maps[y - 2, x - 1] == 2 && maps[y - 2, x] == 2 && maps[y - 1, x] == 2
-                && maps[y - 1, x - 1] == 1 && maps[y - 1, x - 2] == 2 && maps[y, x - 2] == 2 && maps[y, x - 1] == 2)
-            {
-                maps[y - 1, x - 1] = 2;
-            }
+            #endregion   
+            
             //
             // point (9), (7), (17), (19) with rectangle 
             //
-            else if (maps[y, x] == 2 && maps[y + 2, x - 2] == 3 && maps[y + 2, x - 1] == 3 && maps[y + 2, x] == 3 && maps[y + 1, x] == 2
+            if (maps[y, x] == 2 && maps[y + 2, x - 2] == 3 && maps[y + 2, x - 1] == 3 && maps[y + 2, x] == 3 && maps[y + 1, x] == 2
                 && maps[y + 1, x - 1] == 1 && maps[y + 1, x - 2] == 2 && maps[y, x - 2] == 2 && maps[y, x - 1] == 2)
             {
                 maps[y + 1, x - 1] = 2;
