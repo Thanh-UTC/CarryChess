@@ -21,6 +21,7 @@ namespace CarryChess
         private Point startPoint;
         private PictureBox tempPicBox;
         private CheckMove checkMethod = new CheckMove();
+        private ChessMove MovingChess = new ChessMove();
         //
         //
         //
@@ -189,7 +190,44 @@ namespace CarryChess
             DrawChessMan(tempmap);
             //MoveBlackChessMan();
         }
+        public void ResetChessmanImage(PictureBox image)
+        {
+            image.BackColor = Color.Transparent;
+
+        }
+        //
+        //Move the black chessman
+        //
+        public void MoveBlackChessMan()
+        {
+            List<Point> listBlackChess = MovingChess.findMovableBlackChessMan(tempmap);
+            Random t = new Random();
+            int numberOfChess = listBlackChess.Count();
+            Point nextChess = listBlackChess[t.Next(1, numberOfChess)];
+
+            int i = nextChess.X;
+            int j = nextChess.Y;
+
+            List<Point> listMove = findMove(nextChess, tempmap);
+
+            Point nextMove = listMove[0];
+            int x = nextMove.X / CONSTANT.SQUARE_SIZE;
+            int y = nextMove.Y / CONSTANT.SQUARE_SIZE;
+
+            panel1.Controls.Remove(listChess[j, i]);
+            int m;
+
+            m = tempmap[j, i];
+            tempmap[j, i] = 0;
+            tempmap[y + 1, x + 1] = m;
+
+            listChess[y + 1, x + 1] = tempPicBox;
+
+            tempmap = EatCheck(destinationPoint, tempmap);
+            WipeChessMan();
+            DrawChessMan(tempmap);
 
 
+        }
     }
 }

@@ -27,6 +27,38 @@ namespace CarryChess
             return true;
         }
         //
+        //Check game status
+        //
+        public int CheckStatus(int[,] map)
+
+        {
+            int black = 0;
+            int white = 0;
+            for (int i = 0; i < 7; i++)
+            {
+                for (int j = 0; j < 7; j++)
+                {
+                    if (map[i, j] == 1)
+                    {
+                        black++;
+                    }
+                    else if (map[i, j] == 2)
+                    {
+                        white++;
+                    }
+                }
+            }
+            if (black == 16)
+            {
+                return 1;
+            }
+            else if (white == 16)
+            {
+                return 2;
+            }
+            return -1;
+        }
+        //
         //Check the move make a eat move or not
         //
         public int[,] EatCheck(Point Coord, int[,] tempmap)
@@ -205,54 +237,72 @@ namespace CarryChess
                     maps[y, x - 1] = 2;
                 }
                 #endregion
+                //
+                //rectangle 
+                //
                 #region rectangle- each point is the corner of the rectangle or the middle point- 5 surrounded chessmen
-                if (maps[y + 1, x - 1] == 1 && maps[y + 1, x - 2] == 2 && maps[y, x - 2] == 2 && maps[y, x - 1] == 2 && maps[y + 1, x] == 2)
+                // 
+                if (maps[y,x+1]==1 && maps[y-1, x]==2 && maps[y-1, x+1]==2 && maps[y-1, x+2]==2 && maps[y,x+2]==2
+                    && maps[y+1,x+2]==-1 && maps[y+1, x+1]==-1 && maps[y+1,x]==-1)
                 {
-                    maps[y + 1, x - 1] = 2;
-                } else if (maps[y, x - 1] == 1 && maps[y, x - 2] == 2 && maps[y - 1, x - 2] == 2 && maps[y - 1, x - 1] == 2 && maps[y - 1, x] == 2)
-                {
-                    maps[y, x - 1] = 2;
-                } else if (maps[y,x+1]==1 && maps[y-1,x]==2 && maps[y-1,x+1]==2 && maps[y-1,x+2]==2 && maps[y,x+2]==2)
-                {
-                    maps[y, x + 1] = 2;
-                }else if (maps[y+1,x+1]==1 && maps[y+1,x]==2 && maps[y,x+1]==2 && maps[y,x+2]==2 && maps[y+1,x+2]==2)
+                    maps[y,x+1] = 2;
+                }else if (maps[y+1,x+1]==1 && maps[y,x+1]==2 && maps[y, x+2]==2 && maps[y+1,x+2]==2 && maps[y+1,x]==2 
+                    && maps[y+2,x+2]==-1 && maps[y+2,x+1]==-1 && maps[y+2,x]==-1)
                 {
                     maps[y + 1, x + 1] = 2;
-                }else if (maps[y+1,x] ==1 && maps[y+1,x-1]==2 && maps[y,x-1]==2 && maps[y,x+1]==2 && maps[y+1,x+1]==2)
+                }else if (maps[y+1,x]==1 && maps[y,x+1]==2 && maps[y+1,x+1]==2 && maps[y+1,x-1]==2 && maps[y,x-1]==2 
+                    && maps[y+2, x+1]==-1 && maps[y+2,x]==-1 && maps[y+2,x-1]==-1)
                 {
                     maps[y + 1, x] = 2;
+                }else if (maps[y+1,x-1]==1 && maps[y+1,x]==2 && maps[y+1,x-2]==2 && maps[y,x-2]==2 && maps[y,x-1]==2 
+                    && maps[y+2,x]==-1 && maps[y+2,x-1]==-1 && maps[y+2, x-2]==-1)
+                {
+                    maps[y + 1, x - 1] = 2;
+                }else if(maps[y,x-1]==1 && maps[y, x-2]==2 && maps[y-1,x-2]==2 && maps[y-1,x-1]==2 && maps[y-1,x]==2
+                    && maps[y+1,x]==-1 && maps[y+1,x-1]==-1 && maps[y+1, x - 2] == -1)
+                {
+                    maps[y, x - 1] = 2;
+                }
+                //
+                else if (maps[y-1,x]==1 && maps[y,x-1]==2 && maps[y-1,x-1]==2 && maps[y-2, x-1]==2 && maps[y-2,x]==2
+                    && maps[y,x+1]==-1 && maps[y-1,x+1]==-1 && maps[y-2,x+1]==-1)
+                {
+                    maps[y - 1, x] = 2;
+                }else if (maps[y - 1, x + 1] == 1&& maps[y - 1, x] == 2&& maps[y - 2, x] == 2&& maps[y - 2, x + 1] == 2&& maps[y, x + 1] == 2
+                    && maps[y, x + 2] == -1&& maps[y - 1, x + 2] == -1&& maps[y - 1, x + 2] == -1)
+                {
+                    maps[y - 1, x + 1] = 2;
+                }else if (maps[y, x + 1] == 1&& maps[y - 1, x] == 2&& maps[y - 1, x + 1] == 2&& maps[y + 1, x + 1] == 2&& maps[y + 1, x] == 2
+                    && maps[y - 1, x + 2] == -1&& maps[y, x + 2] == -1&& maps[y + 1, x + 2] == -1)
+                {
+                    maps[y, x + 1] = 2;
+                }else if (maps[y + 1, x + 1] == 1 && maps[y, x + 1] == 2 && maps[y + 2, x + 1] == 2 && maps[y + 2, x] == 2 && maps[y + 1, x] == 2
+                    && maps[y, x + 2] == -1 && maps[y + 1, x + 2] == -1 && maps[y + 2, x + 2] == -1)
+                {
+                    maps[y + 1, x + 1] = 2;
+                }else if (maps[y + 1, x] == 1 && maps[y + 2, x] == 2 && maps[y + 2, x - 1] == 2 && maps[y + 1, x - 1] == 2 && maps[y, x - 1] == 2
+                    && maps[y, x + 1] == -1 && maps[y + 1, x + 1] == -1 && maps[y + 2, x + 1] == -1)
+                {
+                    maps[y + 1, x] = 2;
+                }
+                //
+                else if (maps[y, x - 1] == 1 && maps[y + 1, x] == 2 && maps[y + 1, x - 1] == 2 && maps[y + 1, x - 2] == 2 && maps[y, x - 2] == 2
+          && maps[y - 1, x] == -1 && maps[y - 1, x - 1] == -1 && maps[y - 1, x - 2] == -1)
+                {
+                    maps[y, x - 1] = 2;
+                }else if ()
+                {
+
                 }
                     #endregion
             }
             #endregion   
             
-            //
-            // point (9), (7), (17), (19) with rectangle 
-            //
-            if (maps[y, x] == 2 && maps[y + 2, x - 2] == 3 && maps[y + 2, x - 1] == 3 && maps[y + 2, x] == 3 && maps[y + 1, x] == 2
-                && maps[y + 1, x - 1] == 1 && maps[y + 1, x - 2] == 2 && maps[y, x - 2] == 2 && maps[y, x - 1] == 2)
-            {
-                maps[y + 1, x - 1] = 2;
-            }
-            else if (maps[y, x] == 2 && maps[y + 2, x + 2] == 3 && maps[y + 2, x + 1] == 2 && maps[y + 2, x] == 2 && maps[y + 1, x] == 2
-                && maps[y + 1, x + 1] == 1 && maps[y + 1, x + 2] == 3 && maps[y, x + 2] == 3 && maps[y, x + 1] == 2)
-            {
-                maps[y + 1, x + 1] = 2;
-            }
-            else if (maps[y, x] == 2 && maps[y - 2, x + 2] == 3 && maps[y - 2, x + 1] == 3 && maps[y - 2, x] == 3 && maps[y - 1, x] == 2
-                && maps[y - 1, x + 1] == 1 && maps[y - 1, x + 2] == 2 && maps[y, x + 2] == 2 && maps[y, x + 1] == 2)
-            {
-                maps[y - 1, x + 1] = 2;
-            }
-            else if (maps[y, x] == 2 && maps[y - 2, x - 2] == 3 && maps[y - 2, x - 1] == 2 && maps[y - 2, x] == 2 && maps[y - 1, x] == 2
-                && maps[y - 1, x - 1] == 1 && maps[y - 1, x - 2] == 3 && maps[y, x - 2] == 3 && maps[y, x - 1] == 2)
-            {
-                maps[y - 1, x - 1] = 2;
-            }
+           
             //
             //  point (9), (7), (17), (19) with small square
             //
-            else if (maps[y, x] == 2 && maps[y + 2, x - 2] == 3 && maps[y + 2, x - 1] == 3 && maps[y + 2, x] == 3 && maps[y + 1, x] == 2
+            if (maps[y, x] == 2 && maps[y + 2, x - 2] == 3 && maps[y + 2, x - 1] == 3 && maps[y + 2, x] == 3 && maps[y + 1, x] == 2
                && maps[y + 1, x - 1] == 1 && maps[y + 1, x - 2] == 3 && maps[y, x - 2] == 3 && maps[y, x - 1] == 2)
             {
                 maps[y + 1, x - 1] = 2;
