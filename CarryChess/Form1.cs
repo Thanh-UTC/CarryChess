@@ -91,7 +91,7 @@ namespace CarryChess
                             BackColor = Color.Transparent
                         };
                         panel1.Controls.Add(listChess[i, j]);
-                        listChess[i, j].Click += ChessClick;
+                        //listChess[i, j].Click += ChessClick;
                     }
                     else if (_tempmap[i+CONS.STD_DEVI, j+CONS.STD_DEVI] == 2)
                     {
@@ -164,31 +164,33 @@ namespace CarryChess
                 Console.WriteLine();
             }
             destinationPoint = new Point(x * CONS.SQUARE_SIZE, y*CONS.SQUARE_SIZE);
-
-            int i = (startPoint.X) / CONS.SQUARE_SIZE;
-            int j = (startPoint.Y) / CONS.SQUARE_SIZE;
-            panel1.Controls.Remove(listChess[j, i]);
-            int m;
-
-            m = tempmap[j+CONS.STD_DEVI, i+CONS.STD_DEVI];
-            tempmap[j+CONS.STD_DEVI, i+CONS.STD_DEVI] = 0;
-            tempmap[y + CONS.STD_DEVI, x + CONS.STD_DEVI] = m;
-
-            listChess[y,x] = tempPicBox;
-            
-            tempmap = checkMethod.EatCheck(destinationPoint, tempmap);
-            WipeOutChessmen();
-            Console.WriteLine();
-            for (int a = 0; a < 9; a++)
+            if (checkMethod.LegalMove(startPoint, destinationPoint) && tempmap[y + 1, x + 1] == 0)
             {
-                for (int b = 0; b < 9; b++)
-                {
-                    Console.Write(tempmap[a, b] + " ");
-                }
+                int i = (startPoint.X) / CONS.SQUARE_SIZE;
+                int j = (startPoint.Y) / CONS.SQUARE_SIZE;
+                panel1.Controls.Remove(listChess[j, i]);
+                int m;
+
+                m = tempmap[j + CONS.STD_DEVI, i + CONS.STD_DEVI];
+                tempmap[j + CONS.STD_DEVI, i + CONS.STD_DEVI] = 0;
+                tempmap[y + CONS.STD_DEVI, x + CONS.STD_DEVI] = m;
+
+                listChess[y, x] = tempPicBox;
+
+                tempmap = checkMethod.EatCheck(destinationPoint, tempmap);
+                WipeOutChessmen();
                 Console.WriteLine();
+                for (int a = 0; a < 9; a++)
+                {
+                    for (int b = 0; b < 9; b++)
+                    {
+                        Console.Write(tempmap[a, b] + " ");
+                    }
+                    Console.WriteLine();
+                }
+                //DrawChessMan(tempmap);
+                MoveBlackChessMan();
             }
-            DrawChessMan(tempmap);
-            //MoveBlackChessMan();
         }
         public void ResetChessmanImage(PictureBox image)
         {
@@ -202,29 +204,39 @@ namespace CarryChess
         {
             List<Point> listBlackChess = MovingChess.findMovableBlackChessMan(tempmap);
             Random t = new Random();
-            int numberOfChess = listBlackChess.Count();
-            Point nextChess = listBlackChess[t.Next(1, numberOfChess)];
+            int numberOfChess = listBlackChess.Count()-1;
+
+            Point nextChess = listBlackChess[t.Next(0, numberOfChess)];
 
             int i = nextChess.X;
             int j = nextChess.Y;
+            Console.WriteLine("start AI coord: " + j + " " + i);
 
-            List<Point> listMove = findMove(nextChess, tempmap);
+            List<Point> listMove = MovingChess.findMove(nextChess, tempmap);
 
             Point nextMove = listMove[0];
-            int x = nextMove.X / CONSTANT.SQUARE_SIZE;
-            int y = nextMove.Y / CONSTANT.SQUARE_SIZE;
-
+            int x = nextMove.X / CONS.SQUARE_SIZE;
+            int y = nextMove.Y / CONS.SQUARE_SIZE;
+            Console.WriteLine("des AI coord: " + y + " " + x);
             panel1.Controls.Remove(listChess[j, i]);
             int m;
 
             m = tempmap[j, i];
             tempmap[j, i] = 0;
-            tempmap[y + 1, x + 1] = m;
+            tempmap[y + CONS.STD_DEVI, x + CONS.STD_DEVI] = m;
 
-            listChess[y + 1, x + 1] = tempPicBox;
+            listChess[y + CONS.STD_DEVI, x + CONS.STD_DEVI] = tempPicBox;
 
-            tempmap = EatCheck(destinationPoint, tempmap);
-            WipeChessMan();
+            //tempmap = checkMethod.EatCheck(nextMove, tempmap);
+            for (int a = 0; a < 9; a++)
+            {
+                for (int b = 0; b < 9; b++)
+                {
+                    Console.Write(tempmap[a, b] + " ");
+                }
+                Console.WriteLine();
+            }
+            WipeOutChessmen();
             DrawChessMan(tempmap);
 
 
