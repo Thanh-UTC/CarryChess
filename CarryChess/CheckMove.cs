@@ -15,10 +15,10 @@ namespace CarryChess
         public bool LegalMove(Point startCoord, Point desCoord)
         {
             //find the coordinates of start Point and destination Point
-            int startX = (startCoord.X + 125) / CONS.SQUARE_SIZE;
-            int startY = (startCoord.Y + 125) / CONS.SQUARE_SIZE;
-            int desX = (desCoord.X + 125) / CONS.SQUARE_SIZE;
-            int desY = (125 + desCoord.Y) / CONS.SQUARE_SIZE;
+            int startX = startCoord.X;
+            int startY = startCoord.Y ;
+            int desX = desCoord.X ;
+            int desY = desCoord.Y;
             //check the move
             if ((startX + startY) % 2 != 0 && (desX + desY) % 2 != 0)
             {
@@ -63,8 +63,8 @@ namespace CarryChess
         //
         public int[,] EatCheck(Point Coord, int[,] tempmap)
         {
-            int x = (Coord.X) / CONS.SQUARE_SIZE + CONS.STD_DEVI;
-            int y = (Coord.Y) / CONS.SQUARE_SIZE + CONS.STD_DEVI;
+            int x = Coord.X + CONS.STD_DEVI;
+            int y = Coord.Y + CONS.STD_DEVI;
             int[,] maps = tempmap;
             //  map
             //  (b)  (b)  (b)   (b)   (b)   (b)   (b)   (b)  (b)  

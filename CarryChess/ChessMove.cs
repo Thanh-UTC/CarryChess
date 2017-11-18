@@ -19,7 +19,7 @@ namespace CarryChess
                 {
                     if (temp_map[i, j] == 1)
                     {
-                        point.Add(new Point(j-CONS.STD_DEVI, i-CONS.STD_DEVI));
+                        point.Add(new Point(j, i));
 
                     }
                 }
@@ -31,49 +31,49 @@ namespace CarryChess
         public List<Point> findMove(Point startPoint, int[,] maps)
         {
             List<Point> PossibleMoves = new List<Point>();
-            int i = startPoint.X+CONS.STD_DEVI;
-            int j = startPoint.Y+CONS.STD_DEVI;
+            int i = startPoint.X;//j
+            int j = startPoint.Y;//i
 
             //move to bottom-left point
-            if ((i - 1 >= 2) && (j - 1 >= 2) && (checkMethod.LegalMove(startPoint, new Point((i - 1) * CONS.SQUARE_SIZE - 125, (j - 1) * CONS.SQUARE_SIZE - 125))) && maps[j - 1, i - 1] == 0)
+            if ((i - 1 >= 1) && (j - 1 >=1 ) && (checkMethod.LegalMove(startPoint, new Point((i - 1)  , (j - 1)  ))) && maps[j - 1, i - 1] == 0)
             {
-                PossibleMoves.Add(new Point((i - 1) * CONS.SQUARE_SIZE - 125, (j - 1) * CONS.SQUARE_SIZE - 125));
+                PossibleMoves.Add(new Point((i - 1) * CONS.SQUARE_SIZE - 250, (j - 1) * CONS.SQUARE_SIZE - 250));
             }
             //move to bottom-right point
-            if ((i + 1 <= 8) && (j - 1 >= 2) && (checkMethod.LegalMove(startPoint, new Point((i - 1) * CONS.SQUARE_SIZE - 125, (j + 1) * CONS.SQUARE_SIZE - 125))) && maps[j - 1, i + 1] == 0)
+            if ((i + 1 <= 7) && (j - 1 >= 1) && (checkMethod.LegalMove(startPoint, new Point((i - 1)  , (j + 1)  ))) && maps[j - 1, i + 1] == 0)
             {
-                PossibleMoves.Add(new Point((i - 1) * CONS.SQUARE_SIZE - 125, (j + 1) * CONS.SQUARE_SIZE - 125));
+                PossibleMoves.Add(new Point((i - 1) * CONS.SQUARE_SIZE - 250, (j + 1) * CONS.SQUARE_SIZE - 250));
             }
             //move to top-right point 
-            if ((i + 1 <= 8) && (j + 1 <= 8) && (checkMethod.LegalMove(startPoint, new Point((i + 1) * CONS.SQUARE_SIZE - 125, (j + 1) * CONS.SQUARE_SIZE - 125))) && maps[j + 1, i + 1] == 0)
+            if ((i + 1 <= 7) && (j + 1 <= 7) && (checkMethod.LegalMove(startPoint, new Point((i + 1)  , (j + 1)  ))) && maps[j + 1, i + 1] == 0)
             {
-                PossibleMoves.Add(new Point((i + 1) * CONS.SQUARE_SIZE - 125, (j + 1) * CONS.SQUARE_SIZE - 125));
+                PossibleMoves.Add(new Point((i + 1) * CONS.SQUARE_SIZE - 250, (j + 1) * CONS.SQUARE_SIZE - 250));
             }
             //move to top-left point 
-            if ((i - 1 >= 2) && (j + 1 <= 8) && (checkMethod.LegalMove(startPoint, new Point((i - 1) * CONS.SQUARE_SIZE - 125, (j + 1) * CONS.SQUARE_SIZE - 125))) && maps[j + 1, i - 1] == 0)
+            if ((i - 1 >=1) && (j + 1 <=7) && (checkMethod.LegalMove(startPoint, new Point((i - 1)  , (j + 1)  ))) && maps[j + 1, i - 1] == 0)
             {
-                PossibleMoves.Add(new Point((i - 1) * CONS.SQUARE_SIZE - 125, (j + 1) * CONS.SQUARE_SIZE - 125));
+                PossibleMoves.Add(new Point((i - 1) * CONS.SQUARE_SIZE - 250, (j + 1) * CONS.SQUARE_SIZE - 250));
             }
 
             //move to top point
-            if ((j + 1 <= 8) && (checkMethod.LegalMove(startPoint, new Point(i * CONS.SQUARE_SIZE - 125, (j + 1) * CONS.SQUARE_SIZE - 125))) && maps[j + 1, i] == 0)
+            if ((j + 1 <= 7) && (checkMethod.LegalMove(startPoint, new Point(i  , (j + 1)  ))) && maps[j+1 , i] == 0)
             {
-                PossibleMoves.Add(new Point(i * CONS.SQUARE_SIZE - 125, (j + 1) * CONS.SQUARE_SIZE - 125));
+                PossibleMoves.Add(new Point(i * CONS.SQUARE_SIZE - 250, (j + 1) * CONS.SQUARE_SIZE - 250));
             }
             //move to bottom point
-            if ((j - 1 >= 2) && (checkMethod.LegalMove(startPoint, new Point(i * CONS.SQUARE_SIZE - 125, (j - 1) * CONS.SQUARE_SIZE - 125))) && maps[j - 1, i] == 0)
+            if ((j - 1 >= 1) && (checkMethod.LegalMove(startPoint, new Point(i  , (j - 1)  ))) && maps[j-1 , i] == 0)
             {
-                PossibleMoves.Add(new Point(i * CONS.SQUARE_SIZE - 125, (j - 1) * CONS.SQUARE_SIZE - 125));
+                PossibleMoves.Add(new Point(i * CONS.SQUARE_SIZE - 250, (j - 1) * CONS.SQUARE_SIZE - 250));
             }
             //move to right
-            if ((i + 1 <= 8) && (checkMethod.LegalMove(startPoint, new Point((i + 1) * CONS.SQUARE_SIZE - 125, j * CONS.SQUARE_SIZE - 125))) && maps[j, i + 1] == 0)
+            if ((i + 1 <= 7) && (checkMethod.LegalMove(startPoint, new Point((i + 1)  , j  ))) && maps[j , i +1] == 0)
             {
-                PossibleMoves.Add(new Point((i + 1) * CONS.SQUARE_SIZE - 125, j * CONS.SQUARE_SIZE - 125));
+                PossibleMoves.Add(new Point((i + 1) * CONS.SQUARE_SIZE - 250, j * CONS.SQUARE_SIZE - 250));
             }
             //move to left
-            if ((i - 1 >= 2) && (checkMethod.LegalMove(startPoint, new Point((i - 1) * CONS.SQUARE_SIZE - 125, j * CONS.SQUARE_SIZE - 125))) && maps[j, i - 1] == 0)
+            if ((i - 1 >= 1) && (checkMethod.LegalMove(startPoint, new Point((i - 1)  , j  ))) && maps[j , i - 1] == 0)
             {
-                PossibleMoves.Add(new Point((i - 1) * CONS.SQUARE_SIZE - 125, j * CONS.SQUARE_SIZE - 125));
+                PossibleMoves.Add(new Point((i - 1) * CONS.SQUARE_SIZE - 250, j * CONS.SQUARE_SIZE - 250));
             }
             return PossibleMoves;
         }

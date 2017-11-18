@@ -129,14 +129,16 @@ namespace CarryChess
         //
         private void ChessClick(object sender, EventArgs e)
         {
+
             PictureBox chessPiece = sender as PictureBox;
             Console.WriteLine(chessPiece.Location.X + ";" + chessPiece.Location.Y);
             //
             // find the coord in map- set coord to startPoint
             //
-            startPoint = new Point(chessPiece.Location.X, chessPiece.Location.Y);
+            
             int i = (chessPiece.Location.X) / CONS.SQUARE_SIZE;
             int j = (chessPiece.Location.Y) / CONS.SQUARE_SIZE;
+            startPoint = new Point(i, j);
             Console.WriteLine(startPoint.X + ";" + startPoint.Y);
             tempPicBox = listChess[j, i];
             Console.WriteLine("current coord: " + tempPicBox.Location.X + ";" + tempPicBox.Location.Y);
@@ -163,11 +165,11 @@ namespace CarryChess
                 }
                 Console.WriteLine();
             }
-            destinationPoint = new Point(x * CONS.SQUARE_SIZE, y*CONS.SQUARE_SIZE);
-            if (checkMethod.LegalMove(startPoint, destinationPoint) && tempmap[y + 1, x + 1] == 0)
+            destinationPoint = new Point(x, y);
+            if (checkMethod.LegalMove(startPoint, destinationPoint) && tempmap[y+CONS.STD_DEVI, x+CONS.STD_DEVI] == 0)
             {
-                int i = (startPoint.X) / CONS.SQUARE_SIZE;
-                int j = (startPoint.Y) / CONS.SQUARE_SIZE;
+                int i = (startPoint.X) ;
+                int j = (startPoint.Y) ;
                 panel1.Controls.Remove(listChess[j, i]);
                 int m;
 
@@ -176,7 +178,7 @@ namespace CarryChess
                 tempmap[y + CONS.STD_DEVI, x + CONS.STD_DEVI] = m;
 
                 listChess[y, x] = tempPicBox;
-
+                listChess[j, i] = null;
                 tempmap = checkMethod.EatCheck(destinationPoint, tempmap);
                 WipeOutChessmen();
                 Console.WriteLine();
@@ -204,42 +206,47 @@ namespace CarryChess
         {
             List<Point> listBlackChess = MovingChess.findMovableBlackChessMan(tempmap);
             Random t = new Random();
-            int numberOfChess = listBlackChess.Count()-1;
-
-            Point nextChess = listBlackChess[t.Next(0, numberOfChess)];
-
-            int i = nextChess.X;
-            int j = nextChess.Y;
-            Console.WriteLine("start AI coord: " + j + " " + i);
-
-            List<Point> listMove = MovingChess.findMove(nextChess, tempmap);
-
-            Point nextMove = listMove[0];
-            int x = nextMove.X / CONS.SQUARE_SIZE;
-            int y = nextMove.Y / CONS.SQUARE_SIZE;
-            Console.WriteLine("des AI coord: " + y + " " + x);
-            panel1.Controls.Remove(listChess[j, i]);
-            int m;
-
-            m = tempmap[j, i];
-            tempmap[j, i] = 0;
-            tempmap[y + CONS.STD_DEVI, x + CONS.STD_DEVI] = m;
-
-            listChess[y + CONS.STD_DEVI, x + CONS.STD_DEVI] = tempPicBox;
-
-            //tempmap = checkMethod.EatCheck(nextMove, tempmap);
-            for (int a = 0; a < 9; a++)
+            //int numberOfChess = listBlackChess.Count();
+            if (listBlackChess.Count() != 0)
             {
-                for (int b = 0; b < 9; b++)
+                Point nextChess = listBlackChess[2];//t.Next(1, listBlackChess.Count())
+                //Point nextChess = listBlackChess[0];
+                int i = nextChess.X;
+                int j = nextChess.Y;
+                Console.WriteLine("start AI coord: " + i + " " + j);
+
+                List<Point> listMove = MovingChess.findMove(nextChess, tempmap);
+
+                Point nextMove = listMove[0];
+                int x = nextMove.X / CONS.SQUARE_SIZE;
+                int y = nextMove.Y / CONS.SQUARE_SIZE;
+                Console.WriteLine("des AI coord: " + (x+2) + " " + (y+2));
+                panel1.Controls.Remove(listChess[i - CONS.STD_DEVI, j - CONS.STD_DEVI]);
+                int m;
+
+                m = tempmap[j, i];
+                Console.WriteLine(m + " " + j + " " + i);
+                
+                tempmap[j, i] = 0;
+               
+                tempmap[y + CONS.STD_DEVI, x + CONS.STD_DEVI] = m;
+                Console.WriteLine(m + " " + (y+2)+" " + (x+2));
+                Console.WriteLine(tempmap[y + CONS.STD_DEVI, x + CONS.STD_DEVI]);
+                listChess[x, y ] = tempPicBox;
+                listChess[j-CONS.STD_DEVI, i-CONS.STD_DEVI] = null;
+                //tempmap = checkMethod.EatCheck(nextMove, tempmap);
+                for (int a = 0; a < 9; a++)
                 {
-                    Console.Write(tempmap[a, b] + " ");
+                    for (int b = 0; b < 9; b++)
+                    {
+                        Console.Write(tempmap[a, b] + " ");
+                    }
+                    Console.WriteLine();
                 }
-                Console.WriteLine();
+                WipeOutChessmen();
+                DrawChessMan(tempmap);
+
             }
-            WipeOutChessmen();
-            DrawChessMan(tempmap);
-
-
         }
     }
 }
